@@ -13,7 +13,7 @@ let events = [
     {
         id: 0,
         name: "Return to University",
-        date: Date.parse("10-08-2022"),
+        date: "2022-09-10",
         attendees: []
     }
 ]
@@ -21,6 +21,10 @@ let curID = 1
 
 app.get('/', (request, response) => {
     response.sendFile(path.join(__dirname + '/createEvent.html'))
+})
+
+app.get('/all', (request, response) => {
+    response.json(events)
 })
 
 app.get('/:id', (request, response) => {
@@ -33,15 +37,38 @@ app.get('/:id', (request, response) => {
 })
 
 app.post('/', (request, response) => {
-    const newEvent = request.body
-    if (newEvent.eventName && newEvent.eventDate) {
-        newEvent.id = curID
-        curID += 1
-        newEvent.attendees = []
+    if (request.body.eventName && request.body.eventDate) {
+        const newEvent = {
+            name: request.body.eventName,
+            date: request.body.eventDate,
+            id: curID,
+            attendees: []
+        }
         events = events.concat(newEvent)
         response.redirect(`/${newEvent.id}`)
     } else {
-        response.status(400)
+        response.status(400).end()
+    }
+})
+
+app.post('/:id', (request, response) => {
+    const id = Number(request.params.id)
+    if (request.body) {
+        console.log(request.body)
+        let newPerson = {
+            name: request.body.personName,
+            email: request.body.personEmail,
+            requirements: []
+        }
+        request.body.required.forEach(requirement => {
+            if (requirement) {
+                newPerson.requirements.push(requirement)
+            }
+        });
+        events.find(event => event.id === id).attendees.push(newPerson)
+        response.send("<p>You're signed up!</p>")
+    } else {
+        response.status(400).end()
     }
 })
 
