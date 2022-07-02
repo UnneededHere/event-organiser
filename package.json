@@ -1,0 +1,17 @@
+{
+  "name": "event-organiser-project",
+  "version": "1.0.0",
+  "description": "Web app allowing people to privately specify if they will come to an event based on the presence of other people",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle Scorgie",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  }
+}

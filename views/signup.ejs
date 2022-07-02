@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <script>
+        numRequired = 1
+        const addNewPerson = () => {
+            event.preventDefault()
+            numRequired += 1
+            let newPerson = document.createElement("input")
+            newPerson.name = `required${numRequired}`
+            newPerson.placeholder = "Required Person"
+            document.getElementById("required").appendChild(newPerson)
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Signup for event: <%=eventName%></h1>
+    <h3>Taking place on <%=eventDate%></h3>
+    <form>
+        Name:<input name="personName" placeholder="Joe Bloggs"><br>
+        Email:<input name="personEmail" placeholder="joebloggs@mail.com"><br>
+        <div id="required">
+            Required People:<br>
+            <input name="required1" placeholder="Required Person">
+        </div>
+        <button onclick="addNewPerson()">Add new person</button>
+    </form>
+</body>
+
+</html>
