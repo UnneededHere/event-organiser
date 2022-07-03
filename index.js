@@ -9,12 +9,34 @@ app.use(parser.urlencoded())
 app.set('view engine', 'ejs')
 const PORT = 3000
 
+const getAttendees = (attendeeList) => {
+    const helperFunc = (attendee, alreadySeen) => {
+        if (alreadySeen.includes(attendee.email) || !(attendee.requirements)) {
+            return true
+        } else {
+            return attendee.requirements.every(required => {
+                const requiredPerson = attendeeList.find(attendee => attendee.email === required)
+                return requiredPerson && helperFunc(requiredPerson, alreadySeen.concat(attendee.email))
+            })
+        }
+    }
+    return attendeeList.filter(attendee => helperFunc(attendee, []))
+}
+
 let events = [
     {
         id: 0,
         name: "Return to University",
-        date: "2022-09-10",
-        attendees: []
+        date: "2022-01-10",
+        attendees: [{
+            name: "Kyle Scorgie",
+            email: "krjs@outlook.com",
+            requirements: ["zugsteyn@gmail.com", "oskarkhess@gmail.com"]
+        }, {
+            name: "Enoch Zugsteyn",
+            email: "zugsteyn@gmail.com",
+            requirements: ["krjs@outlook.com"]
+        }]
     }
 ]
 let curID = 1
@@ -30,10 +52,17 @@ app.get('/all', (request, response) => {
 app.get('/:id', (request, response) => {
     const id = Number(request.params.id)
     const event = events.find(event => event.id === id)
-    response.render('signup', {
-        eventName: event.name,
-        eventDate: event.date
-    })
+    if (new Date().toISOString().slice(0, 10) < event.date) {
+        response.render('signup', {
+            eventName: event.name,
+            eventDate: event.date
+        })
+    } else {
+        response.render('guestList', {
+            eventName: event.name,
+            attendees: getAttendees(event.attendees)
+        })
+    }
 })
 
 app.post('/', (request, response) => {
@@ -54,7 +83,6 @@ app.post('/', (request, response) => {
 app.post('/:id', (request, response) => {
     const id = Number(request.params.id)
     if (request.body) {
-        console.log(request.body)
         let newPerson = {
             name: request.body.personName,
             email: request.body.personEmail,
