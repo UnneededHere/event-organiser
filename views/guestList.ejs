@@ -1,0 +1,20 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <h1>
+        <%= eventName %> Attendees:
+    </h1>
+    <ul>
+        <% attendees.forEach(attendee=> { %>
+            <li>
+                <%= attendee.name %>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+
+</html>

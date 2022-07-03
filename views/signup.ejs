@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <script>
+        const addNewPerson = () => {
+            event.preventDefault()
+            let newPerson = document.createElement("input")
+            newPerson.name = `required[]`
+            newPerson.placeholder = "requiredperson@mail.com"
+            document.getElementById("required").appendChild(newPerson)
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Signup for event: <%=eventName%>
+    </h1>
+    <h3>Taking place on <%=eventDate%>
+    </h3>
+    <form method="post">
+        Name:<input name="personName" placeholder="Joe Bloggs"><br>
+        Email:<input name="personEmail" placeholder="joebloggs@mail.com"><br>
+        <div id="required">
+            Emails of Required People:<br>
+            <input name="required[]" placeholder="requiredperson@mail.com">
+        </div>
+        <button onclick="addNewPerson()">Add new person</button>
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+
+</html>
