@@ -1,20 +1,19 @@
 <html>
-
 <head>
-
+    <title>Event Guest List</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to the stylesheet -->
 </head>
-
 <body>
-    <h1>
-        <%= eventName %> Attendees:
-    </h1>
-    <ul>
-        <% attendees.forEach(attendee=> { %>
-            <li>
-                <%= attendee.name %>
-            </li>
-        <% }) %>
-    </ul>
+    <h1><%= eventName %> Attendees</h1> <!-- Display the event name -->
+    <div class="section-title">Confirmed Guests</div>
+    <% if (attendees.length === 0) { %> <!-- Check if there are any attendees -->
+        <p>No confirmed attendees yet.</p> <!-- Display a message if there are no attendees -->
+    <% } else { %>
+        <ul>
+            <% attendees.forEach(attendee => { %> <!-- Iterate over the attendees array -->
+                <li><%= attendee.name %></li> <!-- Display the name of each attendee -->
+            <% }) %>
+        </ul>
+    <% } %>
 </body>
-
 </html>

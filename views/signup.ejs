@@ -1,32 +1,46 @@
 <html>
-
 <head>
+    <title>Sign Up for Event</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to the stylesheet -->
     <script>
-        const addNewPerson = () => {
-            event.preventDefault()
-            let newPerson = document.createElement("input")
-            newPerson.name = `required[]`
-            newPerson.placeholder = "requiredperson@mail.com"
-            document.getElementById("required").appendChild(newPerson)
+        // Function to add a new input field for required or unwanted people
+        const addNewPerson = (type) => {
+            event.preventDefault(); // Prevent the form from submitting
+            let newPerson = document.createElement("input"); // Create a new input element
+            newPerson.name = `${type}[]`; // Set the name attribute of the input element
+            newPerson.placeholder = "person@email.com"; // Set the placeholder attribute
+            newPerson.type = "email"; // Set the type attribute to "email"
+            document.getElementById(type).appendChild(newPerson); // Add the new input element to the specified div
         }
     </script>
 </head>
-
 <body>
-    <h1>Signup for event: <%=eventName%>
-    </h1>
-    <h3>Taking place on <%=eventDate%>
-    </h3>
+    <h1><%=eventName%></h1> <!-- Display the event name -->
+    <h3>Taking place on <%=eventDate%></h3> <!-- Display the event date -->
+    
     <form method="post">
-        Name:<input name="personName" placeholder="Joe Bloggs"><br>
-        Email:<input name="personEmail" placeholder="joebloggs@mail.com"><br>
+        <div class="section-title">Your Information</div>
+        <label for="personName">Name</label>
+        <input id="personName" name="personName" placeholder="Joe Bloggs" type="text" required> <!-- Input field for the person's name -->
+        
+        <label for="personEmail">Email</label>
+        <input id="personEmail" name="personEmail" placeholder="joebloggs@mail.com" type="email" required> <!-- Input field for the person's email -->
+        
         <div id="required">
-            Emails of Required People:<br>
-            <input name="required[]" placeholder="requiredperson@mail.com">
+            <div class="section-title">Required People</div>
+            <p>Enter emails of people who need to be there for you to attend:</p>
+            <input name="required[]" type="email" placeholder="person@email.com"> <!-- Input field for required people -->
+            <button onclick="addNewPerson('required')">Add another person</button> <!-- Button to add another required person input field -->
         </div>
-        <button onclick="addNewPerson()">Add new person</button>
-        <input type="submit" value="Sign Up">
+
+        <div id="unwanted">
+            <div class="section-title">People You'd Rather Not See</div>
+            <p>Enter emails of people whose presence would make you uncomfortable:</p>
+            <input name="unwanted[]" type="email" placeholder="person@email.com"> <!-- Input field for unwanted people -->
+            <button onclick="addNewPerson('unwanted')">Add another person</button> <!-- Button to add another unwanted person input field -->
+        </div>
+        
+        <input type="submit" value="Sign Up"> <!-- Submit button -->
     </form>
 </body>
-
 </html>

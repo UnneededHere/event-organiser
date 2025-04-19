@@ -1,8 +1,19 @@
 <html>
+<head>
+    <title>Create Event</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to the stylesheet -->
+</head>
+<body>
     <h1>Create Event</h1>
     <form method="post">
-        Event Name<input placeholder="Event Name" name="eventName"><br>
-        Date of Event<input type="date" name="eventDate"><br>
-        <input type="submit" value="Create Event">
+        <div class="section-title">Event Details</div>
+        <label for="eventName">Event Name</label>
+        <input id="eventName" placeholder="Event Name" name="eventName" type="text" required> <!-- Input field for the event name -->
+        
+        <label for="eventDate">Date of Event</label>
+        <input id="eventDate" type="date" name="eventDate" required> <!-- Input field for the event date -->
+        
+        <input type="submit" value="Create Event"> <!-- Submit button -->
     </form>
+</body>
 </html>
