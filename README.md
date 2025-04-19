@@ -12,6 +12,7 @@ An event is hard-coded into the app to offer an example - navigating to the link
 ## Future Additions
 Possibly to be added in the future:
 
- - [ ] Styling
- - [ ] The option to specify people you *don't* want to be there
+ - [x] Styling
+ - [x] The option to specify people you *don't* want to be there
  - [ ] The option to have the system email users upon sign-up and when the guest-list is generated
+ - [ ] Integration with permanent database storage
